@@ -1,0 +1,1 @@
+Siden variabler bare kan ha én verdi i løpet av programmet vil Browse vise den verdien variablen har når programmet er evaluert.
