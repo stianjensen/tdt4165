@@ -1,0 +1,81 @@
+Task 1:
+a) P og Y er fri. X er bundet.
+b) Z er fri. X og Y er bundet.
+c) P, Q og Z er fri. X og Y er bundet.
+d) Y er bundet. X, P, Q of Y er fri.
+
+Task 2:
+a) Q er en ekstern referanse.
+b) P
+c) Q, Z og U
+d) Q og U
+e) Q
+
+Task 4:
+- Opprett nye variable x1, x2, x3,... i lageret
+- E' = E + {x_1->x1, x_2->x2 ... x_n->xn}
+- Dytt (<s>, E') til stakken
+
+
+Task 5a:
+
+1. ( [ ( if B then skip else skip end, {B->b} ) ], {b} )
+
+b:
+1. ( [ ( B = false, {B->b} ) ( if B then skip else skip end, {B->b} ) ], {b} )
+2. ( [ ( if B then skip else skip end, {B->b} ) ], {b->false} )
+3. ( [ ( skip, {B->b} ) ], {b->false} )
+4. ( nil, {b->false} )
+
+c:
+0. ( [ ( local X Z A B P in
+        proc {P X Y} Y = X + Z end
+        Z = 7 X = 4 {P X A} {P A B}
+    end, phi ) ], phi )
+1. ( [ ( proc {P X Y} Y = X + Z end
+    Z = 7 X = 4 {P X A} {P A B},
+    {X->x, Z->z, A->a, B->b, P->p} ) ],
+    {x, z, a, b, p} )
+2. ( [ ( proc {P X Y} Y = X + Z end,
+    {X->x, Z->z, A->a, B->b, P->p} ),
+    ( Z = 7 X = 4 {P X A} {P A B},
+    {X->x, Z->z, A->a, B->b, P->p} ) ],
+    {x, z, a, b, p} )
+3. ( [ ( Z = 7 X = 4 {P X A} {P A B},
+    {X->x, Z->z, A->a, B->b, P->p} ) ],
+    {x, z, a, b, p->( proc { $ X Y } Y = X+Z end, {Z->z} ) } )
+4. ( [ ( Z = 7, {X->x, Z->z, A->a, B->b, P->p} ),
+    ( X = 4 {P X A} {P A B}, {X->x, Z->z, A->a, B->b, P->p} ) ],
+    {x, z, a, b, p->( proc { $ X Y } Y = X+Z end, {Z->z} ) } )
+5. ( [ ( X = 4 {P X A} {P A B},
+    {X->x, Z->z, A->a, B->b, P->p} ) ],
+    {x, z->7, a, b, p->( proc { $ X Y } Y = X+Z end, {Z->z} ) } )
+6. ( [ ( X = 4, {X->x, Z->z, A->a, B->b, P->p} ),
+    ( {P X A} {P A B}, {X->x, Z->z, A->a, B->b, P->p} ) ],
+    {x, z->7, a, b, p->( proc { $ X Y } Y = X+Z end, {Z->z} ) } )
+7. ( [ ( {P X A} {P A B}, {X->x, Z->z, A->a, B->b, P->p} ) ],
+    {x->4, z->7, a, b, p->( proc { $ X Y } Y = X+Z end, {Z->z} ) } )
+8. ( [ ( {P X A}, {X->x, Z->z, A->a, B->b, P->p} ),
+    ({P A B}, {X->x, Z->z, A->a, B->b, P->p} ) ],
+    {x->4, z->7, a, b, p->( proc { $ X Y } Y = X+Z end, {Z->z} ) } )
+9. ( [ ( Y = X+Z, {Z->z, X->x, Y->a} ),
+    ({P A B}, {X->x, Z->z, A->a, B->b, P->p} ) ],
+    {x->4, z->7, a, b,
+    p->( proc { $ X Y } Y = X+Z end, {Z->z} ) } )
+10. ( [ ({P A B}, {X->x, Z->z, A->a, B->b, P->p} ) ],
+    {x->4, z->7, a->11, b,
+    p->( proc { $ X Y } Y = X+Z end, {Z->z} ) } )
+11. ( [ ( Y = X+Z, {Z->z, X->a, Y->b} ),
+    {x->4, z->7, a->11, b,
+    p->( proc { $ X Y } Y = X+Z end, {Z->z} ) } )
+12. ( nil,
+    {x->4, z->7, a->11, b->18,
+    p->( proc { $ X Y } Y = X+Z end, {Z->z} ) } )
+
+Task 6:
+a) Kan ikke unifiseres. Prøver å endre verdien som X peker til.
+b) Kan unifiseres, X=a, Y=a, Z=a
+c) X=3|4|Y|nil, D=1|2|3|4|Y|nil
+d) Kan ikke unifiseres.
+e) Y=3|4|Y => Y=3|4|3|4|3|4|3|4...
+   X=1|2|3|4|3|4|3|4|3|4
