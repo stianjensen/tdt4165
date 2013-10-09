@@ -1,0 +1,11 @@
+Task 1:
+
+a:
+{Nth S N } tar inn en strøm, og kaller seg selv rekursivt mens det legger til ett og ett element fra S til den har lagt til N elementer.
+
+b:
+En strøm kan brukes lazy, og returnerer bare én og én verdig i stedet for alle på en gang.
+Dette løses ved at den i stedet for nil på slutten, har en ubunden variabel, i dette tilfellet et funksjonskall. Dette gjør at lista kan utvides uendelig lenge.
+
+c:
+Kjernespråket må ha en mulighet til å si fra til tråden som kaller den late funksjonen at returverdien ikke kan bindes. Dette gjøres ved at variabelen bindes til verdien FailedValue.
